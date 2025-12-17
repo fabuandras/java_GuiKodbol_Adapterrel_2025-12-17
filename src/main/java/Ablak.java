@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Ablak extends JFrame implements ActionListener {
+
+    private JButton b1, b2;
+
     public Ablak() {
         this.setTitle("Ablak");
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -12,26 +15,24 @@ public class Ablak extends JFrame implements ActionListener {
 
         setLayout(new FlowLayout());
 
-        JButton b = new JButton("bezár");
-        add(b);
-        //f.revalidate();
+        b1 = new JButton("bezár");
+        b2 = new JButton("megnyit");
+        add(b1);
+        add(b2);
 
-        b.addActionListener(this);
+        b1.addActionListener(this);
+        b2.addActionListener(this);
 
-//        b.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                f.dispose();// ha nincs EXIT_ON_CLOSE
-//                System.exit(0);
-//            }
-//        });
-
-        /* példányosításnál hívjuk --> biztos a legutolsó parancs lesz! */
-//        setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        dispose();
+        Object src = e.getSource();
+        if (src == b1) {
+            dispose();//ha nincs EXIT_ON_CLONE
+            System.exit(0);
+        } else {
+            System.out.println("megnyitás folyamatban...");
+        }
     }
 }
