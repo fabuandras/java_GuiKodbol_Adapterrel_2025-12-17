@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Ablak extends JFrame implements ActionListener {
 
@@ -13,10 +15,20 @@ public class Ablak extends JFrame implements ActionListener {
         /* a this az osztály páldánya */
         setBounds(0, 0, 320, 240);
 
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                kilepes();
+            }
+        });
+
         setLayout(new FlowLayout());
 
         b1 = new JButton("bezár");
+        b1.putClientProperty("b1", "kilepes");
         b2 = new JButton("megnyit");
+        b1.putClientProperty("b2", "megnyitas");
         add(b1);
         add(b2);
 
@@ -27,12 +39,30 @@ public class Ablak extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Object src = e.getSource();
-        if (src == b1) {
-            dispose();//ha nincs EXIT_ON_CLONE
-            System.exit(0);
-        } else {
-            System.out.println("megnyitás folyamatban...");
+        Object obj = e.getSource();
+        String fv = "";
+        if (obj instanceof JButton) {
+            JButton b = (JButton)obj;
+            if (b.getClientProperty("b1") != null){
+                kilepes();
+            } if (b.getClientProperty("b2") != null) {
+
+            }
         }
+        String kulcs = "";
+        switch (e.getActionCommand()) {
+            case "bez":
+                kilepes();break;
+            case "meg":
+                megnyitas();break;
+        }
+    }
+
+    private void megnyitas() {
+        System.out.println("megnyitás folyamatban...");
+    }
+
+    private void kilepes() {
+        System.out.println("kilepes");
     }
 }
