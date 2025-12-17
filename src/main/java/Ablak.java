@@ -63,6 +63,7 @@ public class Ablak extends JFrame implements ActionListener {
     }
 
     private void kilepes() {
-        System.out.println("kilepes");
+        dispose();//ha nincs EXIT_ON_CLOSE
+        System.exit(0);
     }
 }
